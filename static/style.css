@@ -1,0 +1,56 @@
+:root {
+  --transaction-border-width: 5px;
+}
+
+body {
+  font-family: "Poppins", sans-serif, "Roboto";
+}
+
+h1 {
+  text-align: center;
+}
+
+.transactionsBox {
+  text-align: center;
+}
+
+.trasaction {
+  margin-top: 20px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
+
+.heading {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.field {
+  margin: 5px;
+}
+
+.green {
+  color: green;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+}
+
+.border-orange {
+  border: var(--transaction-border-width) solid orange;
+}
+
+.border-green {
+  border: var(--transaction-border-width) solid green;
+}
+
+.border-red {
+  border: var(--transaction-border-width) solid red;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Book</title>
+    <link rel="stylesheet" href='/static/style.css' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Welcome to the trade book</h1>
+    <section class="transactionsBox">
+        <h3>All trasactions</h3>
+        <h2>Cash : {{(acc.cash)|round(2)}}</h2>
+        {% for item in transactions %}
+            <div class="trasaction {{'border-orange' if item.Holding else 'border-green' if item.pl > 0 else 'border-red'}}">
+                <div class="heading">
+                    Stock : {{item.Ticker}}
+                </div>
+                <span class="field">
+                    Bought At: {{(item['BoughtAt'])|round(2)}}
+                </span>
+                <span class="field">
+                    InTrade : {{item.Holding}}
+                </span>
+
+                <span class="field">
+                    Quantity : {{item.Quantity}}
+                </span>
+                
+
+                {% if not item.Holding %}
+                <span class="field">
+                    SoldAt : {{(item['SoldAt'])|round(2)}}
+                </span>
+                {% if item.pl > 0 %}
+                <span class="field green">
+                    Profit (Per Share): {{(item.pl)|round(2)}}
+                </span>
+                <span class="field green">
+                    Total Profit/Loss: {{(item.pl_total)|round(2)}}
+                </span>
+                {% else %}
+                <span class="field red">
+                    Profit (Per Share): {{(item.pl)|round(2)}}
+                </span>
+                <span class="field red">
+                    Total Profit/Loss: {{(item.pl_total)|round(2)}}
+                </span>
+                {% endif %}
+                
+                {% else %}
+                {% set pl_holding =  current_price[item.Ticker].values[-1] - item['BoughtAt'] %}
+                <span class="field bold {{'green' if pl_holding > 0 else 'red'}}">
+                    Current P/L Percentage : {{(pl_holding / item['BoughtAt'] * 100)|round(2)}} %
+                </span>
+                {% endif %}
+                
+            </div>
+        {% endfor %}
+
+    </section>
+</body>
+</html>
